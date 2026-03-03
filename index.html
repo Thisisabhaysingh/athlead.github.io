@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlead - Health & Habit Tracker Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .card h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        .card h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tech-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .tech-item h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-card h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+        .feature-card ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        .feature-card li {
+            margin-bottom: 8px;
+        }
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .screen-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .screen-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .usage-steps {
+            counter-reset: step;
+            list-style: none;
+        }
+        .usage-steps li {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 25px;
+            min-height: 50px;
+        }
+        .usage-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+        }
+        .firebase-structure {
+            background: #1a202c;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .firebase-structure .key {
+            color: #f6ad55;
+        }
+        .firebase-structure .string {
+            color: #68d391;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .badge-primary {
+            background: #667eea;
+            color: white;
+        }
+        .badge-success {
+            background: #48bb78;
+            color: white;
+        }
+        .badge-warning {
+            background: #ed8936;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏃‍♂️ Athlead</h1>
+            <p>Comprehensive Health & Habit Tracker for Shelter Homes</p>
+            <span class="badge badge-primary">React Native</span>
+            <span class="badge badge-success">Expo SDK 54</span>
+            <span class="badge badge-warning">Firebase</span>
+        </header>
+
+        <div class="card">
+            <h2>📱 App Overview</h2>
+            <p>Athlead is a comprehensive health and habit tracking application designed specifically for <strong>Shelter Home Nutrition & Fitness Programs</strong>. The app enables caregivers to track children's meal consumption, exercise routines, and health metrics with age-appropriate portion guidelines and structured weekly meal plans.</p>
+            
+            <div class="highlight">
+                <h4>🎯 Target Audience</h4>
+                <ul>
+                    <li>Shelter Home Administrators</li>
+                    <li>Caregivers & Nutrition Staff</li>
+                    <li>Health Coordinators</li>
+                    <li>Children (8-16 years) - monitored usage</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <h4>📱 Frontend Framework</h4>
+                    <p><strong>React Native 0.81.5</strong> with <strong>Expo SDK 54.0.30</strong></p>
+                    <p>Cross-platform mobile development for iOS & Android</p>
+                </div>
+                <div class="tech-item">
+                    <h4>📊 State Management</h4>
+                    <p><strong>Redux Toolkit 2.11.2</strong></p>
+                    <p>Centralized state management with persistent storage</p>
+                </div>
+                <div class="tech-item">
+                    <h4>🔥 Backend & Database</h4>
+                    <p><strong>Firebase Realtime Database</strong></p>
+                    <p>Real-time data sync, authentication, and cloud storage</p>
+                </div>
+                <div class="tech-item">
+                    <h4>🎨 UI Components</h4>
+                    <p><strong>React Native Paper 5.14.5</strong></p>
+                    <p>Material Design components for consistent UI</p>
+                </div>
+                <div class="tech-item">
+                    <h4>📐 Navigation</h4>
+                    <p><strong>Expo Router 6.0.21</strong></p>
+                    <p>File-based routing with deep linking support</p>
+                </div>
+                <div class="tech-item">
+                    <h4>📈 Charts & PDF</h4>
+                    <p><strong>React Native Chart Kit + Expo Print</strong></p>
+                    <p>Data visualization and PDF report generation</p>
+                </div>
+            </div>
+
+            <h3>Development Dependencies</h3>
+            <ul>
+                <li><strong>TypeScript 5.9.2</strong> - Type-safe development</li>
+                <li><strong>Expo CLI</strong> - Build and development tools</li>
+                <li><strong>Android SDK 36</strong> - Android build tools</li>
+                <li><strong>Gradle 8.14.3</strong> - Build automation</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>✨ Core Features</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔐 Authentication</h4>
+                    <ul>
+                        <li>Email/Password Sign Up & Login</li>
+                        <li>Secure Firebase Authentication</li>
+                        <li>Profile-based user management</li>
+                        <li>Password reset functionality</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🍽️ Shelter Home Meal Plans</h4>
+                    <ul>
+                        <li>7-day structured weekly menu</li>
+                        <li>Age-wise portion guidelines (8-10, 11-13, 14-16 years)</li>
+                        <li>Breakfast, Lunch, Snack, Dinner tracking</li>
+                        <li>Dish combinations with nutritional info</li>
+                        <li>Iron, Calcium, Energy-dense markers</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🏋️ Exercise Tracking</h4>
+                    <ul>
+                        <li>Structured fitness programs</li>
+                        <li>Daily exercise routines</li>
+                        <li>Calorie burn calculation</li>
+                        <li>Exercise completion tracking</li>
+                        <li>Duration and intensity logging</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📊 Dashboard & Analytics</h4>
+                    <ul>
+                        <li>Real-time health metrics overview</li>
+                        <li>Meal completion statistics</li>
+                        <li>Exercise progress charts</li>
+                        <li>Calorie consumption tracking</li>
+                        <li>Weekly and daily progress views</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>👥 Student Management</h4>
+                    <ul>
+                        <li>Add multiple children/students</li>
+                        <li>Age, height, weight profiles</li>
+                        <li>BMI calculation</li>
+                        <li>Individual meal & exercise plans</li>
+                        <li>Screen time limit settings</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📄 Reports & Export</h4>
+                    <ul>
+                        <li>PDF report generation</li>
+                        <li>Weekly meal plan summaries</li>
+                        <li>Nutritional analysis reports</li>
+                        <li>Share via email/messaging</li>
+                        <li>Print-friendly layouts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🗂️ App Screens & Navigation</h2>
+            
+            <div class="screenshots">
+                <div class="screen-card">
+                    <h4>🔐 Auth Screens</h4>
+                    <p><strong>Login</strong> - User authentication with Athlead branding</p>
+                    <p><strong>Signup</strong> - Account creation with health profile setup</p>
+                </div>
+                
+                <div class="screen-card">
+                    <h4>🏠 Main Screens</h4>
+                    <p><strong>Dashboard</strong> - Overview of all health metrics & progress</p>
+                    <p><strong>Meals</strong> - Daily meal plan with completion tracking</p>
+                    <p><strong>Exercise</strong> - Workout routines and activity logging</p>
+                </div>
+                
+                <div class="screen-card">
+                    <h4>👤 Profile Screens</h4>
+                    <p><strong>Students</strong> - Manage children/student profiles</p>
+                    <p><strong>Settings</strong> - App preferences and account settings</p>
+                </div>
+            </div>
+
+            <h3>Navigation Structure</h3>
+            <div class="code-block">
+App Structure:
+├── (auth)/                    # Authentication routes
+│   ├── login.tsx             # Login screen
+│   └── signup.tsx            # Registration screen
+│
+├── (main)/                    # Main app routes (protected)
+│   ├── dashboard.tsx         # Health overview dashboard
+│   ├── meals/                # Meal tracking
+│   │   └── index.tsx        # Daily meal plans
+│   ├── exercise/            # Exercise tracking
+│   │   └── index.tsx       # Workout routines
+│   └── students/           # Student management
+│       └── index.tsx      # Student profiles
+│
+└── _layout.tsx              # Root navigation layout
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🍽️ Meal Plan System</h2>
+            
+            <h3>Shelter Home Nutrition Program</h3>
+            <p>The app implements a comprehensive 7-day rotating meal plan designed for children's nutritional needs.</p>
+
+            <h4>Daily Meal Structure</h4>
+            <table>
+                <tr>
+                    <th>Meal</th>
+                    <th>Timing</th>
+                    <th>Example Items</th>
+                    <th>Key Nutrients</th>
+                </tr>
+                <tr>
+                    <td>Breakfast</td>
+                    <td>8:00 AM</td>
+                    <td>Milk + Cereal, Poha, Paratha</td>
+                    <td>Protein, Energy</td>
+                </tr>
+                <tr>
+                    <td>Lunch</td>
+                    <td>1:00 PM</td>
+                    <td>Chapati, Dal, Rice, Vegetable Curry</td>
+                    <td>Carbs, Protein, Fiber</td>
+                </tr>
+                <tr>
+                    <td>Snack</td>
+                    <td>4:00 PM</td>
+                    <td>Roasted Chana, Fruit Chaat, Milk</td>
+                    <td>Protein, Vitamins</td>
+                </tr>
+                <tr>
+                    <td>Dinner</td>
+                    <td>8:00 PM</td>
+                    <td>Roti, Paneer/Chicken, Seasonal Veg</td>
+                    <td>Protein, Calcium</td>
+                </tr>
+            </table>
+
+            <h4>Age-Wise Portion Guidelines</h4>
+            <div class="highlight">
+                <table>
+                    <tr>
+                        <th>Food Item</th>
+                        <th>8-10 Years</th>
+                        <th>11-13 Years</th>
+                        <th>14-16 Years</th>
+                    </tr>
+                    <tr>
+                        <td>Chapati</td>
+                        <td>2 pieces</td>
+                        <td>3 pieces</td>
+                        <td>4 pieces</td>
+                    </tr>
+                    <tr>
+                        <td>Rice</td>
+                        <td>1 cup</td>
+                        <td>1.5 cups</td>
+                        <td>2 cups</td>
+                    </tr>
+                    <tr>
+                        <td>Dal/Curry</td>
+                        <td>1 cup</td>
+                        <td>1.5 cups</td>
+                        <td>2 cups</td>
+                    </tr>
+                    <tr>
+                        <td>Milk</td>
+                        <td>250ml</td>
+                        <td>300ml</td>
+                        <td>350ml</td>
+                    </tr>
+                    <tr>
+                        <td>Paneer</td>
+                        <td>50g</td>
+                        <td>75g</td>
+                        <td>100g</td>
+                    </tr>
+                    <tr>
+                        <td>Chicken</td>
+                        <td>60g</td>
+                        <td>80g</td>
+                        <td>100g</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🏋️ Exercise Program</h2>
+            
+            <h3>Shelter Home Fitness Program</h3>
+            <p>Structured daily exercise routines designed for children's physical development with varying intensity levels.</p>
+
+            <h4>Exercise Categories</h4>
+            <ul>
+                <li><strong>Warm-up Exercises:</strong> Jumping jacks, stretching, spot jogging</li>
+                <li><strong>Cardio:</strong> Running, cycling, jump rope, dancing</li>
+                <li><strong>Strength:</strong> Bodyweight exercises, resistance training</li>
+                <li><strong>Flexibility:</strong> Yoga, stretching routines</li>
+                <li><strong>Sports:</strong> Kho-Kho, Kabaddi, Football, Volleyball</li>
+            </ul>
+
+            <h4>Exercise Tracking Features</h4>
+            <ul>
+                <li>Mark exercises as completed</li>
+                <li>Track duration and calories burned</li>
+                <li>View daily exercise statistics</li>
+                <li>Weekly exercise summary reports</li>
+                <li>Progress over time visualization</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🔥 Firebase Database Structure</h2>
+            
+            <div class="firebase-structure">
+<pre>{
+  <span class="key">"users"</span>: {
+    <span class="string">"userId"</span>: {
+      <span class="key">"profile"</span>: {
+        <span class="string">"name"</span>: "Caregiver Name",
+        <span class="string">"email"</span>: "user@example.com",
+        <span class="string">"createdAt"</span>: "timestamp"
+      },
+      <span class="key">"students"</span>: {
+        <span class="string">"studentId"</span>: {
+          <span class="string">"name"</span>: "Child Name",
+          <span class="string">"age"</span>: 12,
+          <span class="string">"heightCm"</span>: 145,
+          <span class="string">"weightKg"</span>: 38,
+          <span class="string">"dailyCalorieNeeds"</span>: 2200,
+          <span class="string">"screenTimeLimitMin"</span>: 60
+        }
+      },
+      <span class="key">"mealPlans"</span>: {
+        <span class="string">"planId"</span>: {
+          <span class="string">"studentId"</span>: "studentId",
+          <span class="string">"weeklyMenu"</span>: [...],
+          <span class="string">"completedMeals"</span>: {
+            <span class="string">"2025-03-03"</span>: {
+              <span class="string">"breakfast"</span>: true,
+              <span class="string">"lunch"</span>: true,
+              <span class="string">"snack"</span>: false,
+              <span class="string">"dinner"</span>: false
+            }
+          }
+        }
+      },
+      <span class="key">"exercisePlans"</span>: {
+        <span class="string">"planId"</span>: {
+          <span class="string">"studentId"</span>: "studentId",
+          <span class="string">"exercises"</span>: {
+            <span class="string">"2025-03-03"</span>: {
+              <span class="string">"exercises"</span>: [
+                {
+                  <span class="string">"name"</span>: "Jumping Jacks",
+                  <span class="string">"duration"</span>: 10,
+                  <span class="string">"calories"</span>: 50,
+                  <span class="string">"completed"</span>: true
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📖 How to Use Athlead</h2>
+
+            <h3>Getting Started</h3>
+            <ol class="usage-steps">
+                <li>
+                    <strong>Install the App</strong><br>
+                    Download and install the APK on your Android device. Open the app to see the Athlead login screen with your logo.
+                </li>
+                <li>
+                    <strong>Create Account</strong><br>
+                    Tap "Create account" and fill in your details. Include your health profile (age, height, weight) for personalized recommendations.
+                </li>
+                <li>
+                    <strong>Add Students</strong><br>
+                    Go to the Students tab and add children/students you want to track. Enter their age, height, and weight for accurate portion guidelines.
+                </li>
+            </ol>
+
+            <h3>Daily Workflow</h3>
+            <ol class="usage-steps">
+                <li>
+                    <strong>Check Dashboard</strong><br>
+                    View the daily overview showing all students' meal and exercise progress at a glance.
+                </li>
+                <li>
+                    <strong>Track Meals</strong><br>
+                    Navigate to the Meals tab. Select a student to view their daily meal plan. Mark meals as "done" when consumed.
+                </li>
+                <li>
+                    <strong>Log Exercise</strong><br>
+                    Go to the Exercise tab. View the daily workout routine. Check off completed exercises to track progress.
+                </li>
+                <li>
+                    <strong>Generate Reports</strong><br>
+                    Use the share/export feature to generate PDF reports of weekly meal plans and exercise summaries.
+                </li>
+            </ol>
+
+            <h3>Key Tips</h3>
+            <div class="highlight">
+                <ul>
+                    <li><strong>Meal Tracking:</strong> Tap on any meal to see the detailed dish combination and nutritional information</li>
+                    <li><strong>Portion Guidelines:</strong> The app automatically adjusts portions based on each student's age group</li>
+                    <li><strong>Weekly View:</strong> Use the calendar to navigate between different days and view historical data</li>
+                    <li><strong>Multiple Students:</strong> Add all children in your care to track them from a single dashboard</li>
+                    <li><strong>Offline Support:</strong> Data syncs automatically when internet connection is available</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📋 File Structure</h2>
+            
+            <div class="code-block">
+tracker-app/
+├── app/                          # Main application code
+│   ├── (auth)/                   # Authentication routes
+│   ├── (main)/                   # Main app screens
+│   ├── _layout.tsx              # Root layout configuration
+│   └── index.tsx                # Entry point
+│
+├── src/                          # Source code
+│   ├── components/              # Reusable UI components
+│   ├── constants/               # App constants
+│   │   ├── shelterHomeMealPlan.ts    # Meal database
+│   │   ├── exerciseLibrary.ts        # Exercise database
+│   │   └── mealLibrary.ts           # Legacy meals
+│   ├── firebase/                # Firebase API functions
+│   │   ├── authApi.ts          # Authentication
+│   │   ├── mealPlanApi.ts      # Meal plan operations
+│   │   ├── exerciseApi.ts      # Exercise tracking
+│   │   └── trackerApi.ts       # General tracking
+│   ├── store/                   # Redux state management
+│   │   ├── authSlice.ts        # Auth state
+│   │   └── trackerSlice.ts     # Health tracking state
+│   ├── types/                   # TypeScript definitions
+│   │   └── tracker.ts          # Data type interfaces
+│   └── utils/                   # Utility functions
+│       └── bmi.ts              # BMI calculations
+│
+├── assets/                       # Static assets
+│   ├── fonts/                   # Custom fonts
+│   └── images/                  # App images & logos
+│
+├── android/                      # Android native project
+├── scripts/                      # Utility scripts
+├── app.json                     # Expo configuration
+├── eas.json                     # EAS build configuration
+└── package.json                 # Dependencies
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Building from Source</h2>
+            
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Node.js 18+ and npm</li>
+                <li>Android Studio (for Android SDK)</li>
+                <li>Java Development Kit (JDK) 17+</li>
+                <li>Expo CLI</li>
+            </ul>
+
+            <h3>Installation Steps</h3>
+            <div class="code-block">
+# 1. Clone the repository
+git clone <repository-url>
+cd tracker-app
+
+# 2. Install dependencies
+npm install
+
+# 3. Start development server
+npx expo start
+
+# 4. Run on Android device/emulator
+npx expo run:android
+            </div>
+
+            <h3>Building Production APK</h3>
+            <div class="code-block">
+# Method 1: Local Build
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+npx expo prebuild --platform android
+cd android
+./gradlew assembleRelease
+
+# APK will be at:
+# android/app/build/outputs/apk/release/app-release.apk
+
+# Method 2: EAS Cloud Build
+npx eas build --platform android --profile production
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔧 Configuration</h2>
+            
+            <h3>Firebase Setup</h3>
+            <p>The app uses Firebase Realtime Database for data persistence. Configure your Firebase project in <code>app.json</code>:</p>
+            
+            <div class="code-block">
+{
+  "expo": {
+    "extra": {
+      "firebaseApiKey": "YOUR_API_KEY",
+      "firebaseAuthDomain": "your-project.firebaseapp.com",
+      "firebaseProjectId": "your-project",
+      "firebaseDatabaseUrl": "https://your-project-default-rtdb.firebaseio.com"
+    }
+  }
+}
+            </div>
+
+            <h3>Environment Variables</h3>
+            <p>Create a <code>.env</code> file for sensitive configuration (not included in version control):</p>
+            <div class="code-block">
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+FIREBASE_PROJECT_ID=your_project
+FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+FIREBASE_APP_ID=your_app_id
+FIREBASE_DATABASE_URL=https://your_project-default-rtdb.firebaseio.com
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📞 Support & Contact</h2>
+            
+            <h3>Need Help?</h3>
+            <ul>
+                <li><strong>Email:</strong> abhay.singh@onmyowntechnology.com</li>
+                <li><strong>Issues:</strong> Report bugs via project repository</li>
+                <li><strong>Documentation:</strong> This guide covers all features</li>
+            </ul>
+
+            <h3>Version Information</h3>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>App Name</td>
+                    <td>Athlead</td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td>1.0.0</td>
+                </tr>
+                <tr>
+                    <td>Package</td>
+                    <td>com.anonymous.trackerapp</td>
+                </tr>
+                <tr>
+                    <td>Expo SDK</td>
+                    <td>54.0.30</td>
+                </tr>
+                <tr>
+                    <td>React Native</td>
+                    <td>0.81.5</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            <p>🏃‍♂️ Athlead - Empowering Healthier Futures for Children</p>
+            <p>© 2025 Shelter Home Nutrition Program. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
